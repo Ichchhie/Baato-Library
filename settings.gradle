@@ -1,2 +1,2 @@
-include ':app', ':toasterlibrary', ':routelibrary'
+include ':app', ':toasterlibrary'
 rootProject.name='OSM Navigation App'

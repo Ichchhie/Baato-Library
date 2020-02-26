@@ -28,7 +28,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //toaster library
-    implementation 'com.github.Ichchhie:Toaster-Library:0.1.0'
+    implementation 'com.github.Ichchhie:Toaster-Library:0.2.0'
     //graphhopper navigation
 //    implementation 'com.graphhopper.navigation:navigation-android:0.1.0'
 }
