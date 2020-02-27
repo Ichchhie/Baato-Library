@@ -25,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ToasterMessage.s(this, "Hello Good Morning");
         Geometry geometry = BaatoUtil.getGeoJsonFromEncodedPolyLine(encoded);
+
+        performReverseGeoCoding();
+    }
+
+    private void performReverseGeoCoding() {
         new BaatoReverseGeoCodeService(this)
                 .setGeoCode(new Geocode(27.73405, 85.33685))
                 .setAccessToken(Constants.TOKEN)
