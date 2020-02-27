@@ -1,15 +1,15 @@
 package com.kathmandulivinglabs.osmnavigationapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.kathmandulivinglabs.navigationlibrary.BaatoUtil;
-import com.kathmandulivinglabs.navigationlibrary.ToasterMessage;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.kathmandulivinglabs.navigationlibrary.models.Geometry;
+import com.kathmandulivinglabs.navigationlibrary.services.Baato;
+import com.kathmandulivinglabs.navigationlibrary.services.ToasterMessage;
+import com.kathmandulivinglabs.navigationlibrary.utilities.BaatoUtil;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
 import com.mapbox.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.geojson.Point;
@@ -22,7 +22,6 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
-import com.mapbox.services.android.navigation.ui.v5.route.NavigationMapRoute;
 import com.mapbox.services.android.navigation.v5.navigation.NavigationRoute;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String TAG = "apple";
     private MapboxMap mapboxMap;
     private MapView mapView;
-    private NavigationMapRoute navigationMapRoute;
+    private NavigationRoute navigationMapRoute;
     String encoded = "wv{gD_`lhOQvAO^c@h@Yj@IZKhADXj@|ABrAElB@NLLp@LHFDJJvDb@pBx@~B`AjBBP@fCArBW|KSxEQbHGbAYhBKVmA`C}A`EuBrGcAxC}@hBA^BJb@`@dBr@tBbAh@RdDbBs@fCYxAmBnKy@`F_Gj[]zBS~AWjDC~AA|BBbBj@|JpB~YRrDbAjONlDD~AAbCuArj@o@nSkB~w@CzB{@x\\e@rLa@jN@zBO|DE|EQjBKp@W~@Sf@o@dAs@x@i@d@_@RkAj@_AP_AJmCDkBD}IDoFF_ETc@@iARyAf@UKa@_@YKk@KuBGu@Kq@MkA[k@SsB{@wCwAgAo@g@SsDiBa@OcJmE{IcEiAm@kJmEmAc@U?QA[IUK]EmI_@wBCk@Dm@FiCt@k@ViNvJ_BlAcAj@{@Xc@JuALsGN{@F_@Da@NeAn@WXWb@]fAIf@Al@Bt@`AvKVhDDpAMjB[jASb@yAzBiAvAuCfEYxAe@SmE}AsGeA_FiBwG_CsB_@sGq@{AWcA]eASuC{@g@IiDs@_BWy@FiG`BqCx@sFvA{JlC_APq@DqA?[CcAOgCg@qFqAgGkA{@Gk@@i@Dg@Je@NmAl@_^~R^p@lAlAdAv@^T~Al@t@l@F?b@MjChANBl@ATIDCFl@APNH?Ho@`CTf@HJ`@FJN?Je@fA[d@CJBJHJ@POv@HPFVd@ZBJAJa@v@bAf@JjAw@`@yAf@s@d@SHQAAf@c@C@p@YAm@R?n@SPkAPAB?|@g@HCLaAB";
 
     @Override
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
         ToasterMessage.s(this, "Hello Good Morning");
         Geometry geometry = BaatoUtil.getGeoJsonFromEncodedPolyLine(encoded);
+        Log.d(TAG, "onCreate: " + Baato.search(Constants.TOKEN, "chardhunga").toString());
         NavigationRoute.builder(this)
                 .accessToken(Mapbox.getAccessToken())
                 .origin(Point.fromLngLat(85.4278774, 27.6721352))
@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         this.mapboxMap = mapboxMap;
         mapboxMap.setStyle(Style.MAPBOX_STREETS, style -> {
             initializeLocationComponent(mapboxMap);
-            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
+//            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
             mapboxMap.addOnMapLongClickListener(this);
-            Snackbar.make(mapView, "Long press to select route", Snackbar.LENGTH_SHORT).show();
+//            Snackbar.make(mapView, "Long press to select route", Snackbar.LENGTH_SHORT).show();
         });
     }
 
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 && response.body() != null
                 && !response.body().routes().isEmpty()) {
             List<DirectionsRoute> routes = response.body().routes();
-            navigationMapRoute.addRoutes(routes);
+//            navigationMapRoute.addRoutes(routes);
         }
     }
 
@@ -111,18 +111,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onStart() {
         super.onStart();
         mapView.onStart();
-        if (navigationMapRoute != null) {
-            navigationMapRoute.onStart();
-        }
+//        if (navigationMapRoute != null) {
+//            navigationMapRoute.onStart();
+//        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         mapView.onStop();
-        if (navigationMapRoute != null) {
-            navigationMapRoute.onStop();
-        }
+//        if (navigationMapRoute != null) {
+//            navigationMapRoute.onStop();
+//        }
     }
 
     @Override

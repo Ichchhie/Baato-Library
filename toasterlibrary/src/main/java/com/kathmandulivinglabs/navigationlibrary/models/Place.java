@@ -14,7 +14,7 @@ public class Place {
     private Integer searchRank;
     private Integer addressRank;
     private String geometryType;
-    private Centroid centroid;
+    private Geocode centroid;
 
     private List<String> tags;
     private String country;
@@ -110,11 +110,11 @@ public class Place {
         this.geometryType = geometryType;
     }
 
-    public Centroid getCentroid() {
+    public Geocode getCentroid() {
         return centroid;
     }
 
-    public void setCentroid(Centroid centroid) {
+    public void setCentroid(Geocode centroid) {
         this.centroid = centroid;
     }
 

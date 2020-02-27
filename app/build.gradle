@@ -32,13 +32,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //toaster library
-    implementation 'com.github.Ichchhie:Toaster-Library:0.3.0'
+    implementation 'com.github.Ichchhie:Toaster-Library:0.4.0'
 
     implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.2'){
         exclude group: 'group_name', module: 'module_name'
     }
 
-//    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.42.5'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation:0.42.5'
 //    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.5'
     //graphhopper navigation
 //    implementation 'com.graphhopper.navigation:navigation-android:0.1.0'
