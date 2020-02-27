@@ -6,8 +6,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.kathmandulivinglabs.navigationlibrary.models.Geocode;
 import com.kathmandulivinglabs.navigationlibrary.models.Geometry;
+import com.kathmandulivinglabs.navigationlibrary.models.Place;
 import com.kathmandulivinglabs.navigationlibrary.services.Baato;
+import com.kathmandulivinglabs.navigationlibrary.services.BaatoReverseGeoCodeService;
 import com.kathmandulivinglabs.navigationlibrary.services.ToasterMessage;
 import com.kathmandulivinglabs.navigationlibrary.utilities.BaatoUtil;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
@@ -31,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback,
-        MapboxMap.OnMapLongClickListener, Callback<DirectionsResponse> {
+        MapboxMap.OnMapLongClickListener{
 
     private static final String TAG = "apple";
     private MapboxMap mapboxMap;
@@ -49,15 +52,31 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.getMapAsync(this);
         ToasterMessage.s(this, "Hello Good Morning");
         Geometry geometry = BaatoUtil.getGeoJsonFromEncodedPolyLine(encoded);
-        Log.d(TAG, "onCreate: " + Baato.search(Constants.TOKEN, "chardhunga").toString());
-        NavigationRoute.builder(this)
-                .accessToken(Mapbox.getAccessToken())
-                .origin(Point.fromLngLat(85.4278774, 27.6721352))
-                .destination(Point.fromLngLat(85.3346386, 27.7340328))
-                .alternatives(true)
-                .build()
-                .getRoute(this);
-        Log.d("hello", "onCreate: " + geometry.coordinates);
+        new BaatoReverseGeoCodeService(this)
+                .setGeoCode(new Geocode(27.73405, 85.33685))
+                .setAccessToken(Constants.TOKEN)
+                .setRadius(2)
+                .withListener(new BaatoReverseGeoCodeService.BaatoReverseGeoCodeRequestListener() {
+                    @Override
+                    public void onSuccess(List<Place> places) {
+                        Log.d(TAG, "onSuccess:reverse " + places.toString());
+                    }
+
+                    @Override
+                    public void onFailed(Throwable error) {
+                        Log.d(TAG, "onFailed:reverse " + error.getMessage());
+                    }
+                })
+                .doReverseGeoCode();
+//        Log.d(TAG, "onCreate: " + Baato.search(Constants.TOKEN, "chardhunga").toString());
+//        NavigationRoute.builder(this)
+//                .accessToken(Mapbox.getAccessToken())
+//                .origin(Point.fromLngLat(85.4278774, 27.6721352))
+//                .destination(Point.fromLngLat(85.3346386, 27.7340328))
+//                .alternatives(true)
+//                .build()
+//                .getRoute(this);
+//        Log.d("hello", "onCreate: " + geometry.coordinates);
     }
 
     @Override
@@ -69,36 +88,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
         mapboxMap.setStyle(Style.MAPBOX_STREETS, style -> {
-            initializeLocationComponent(mapboxMap);
+//            initializeLocationComponent(mapboxMap);
 //            navigationMapRoute = new NavigationMapRoute(null, mapView, mapboxMap);
             mapboxMap.addOnMapLongClickListener(this);
 //            Snackbar.make(mapView, "Long press to select route", Snackbar.LENGTH_SHORT).show();
         });
-    }
-
-    @SuppressWarnings("MissingPermission")
-    private void initializeLocationComponent(MapboxMap mapboxMap) {
-        LocationComponent locationComponent = mapboxMap.getLocationComponent();
-        locationComponent.activateLocationComponent(this, mapboxMap.getStyle());
-        locationComponent.setLocationComponentEnabled(true);
-        locationComponent.setRenderMode(RenderMode.COMPASS);
-        locationComponent.setCameraMode(CameraMode.TRACKING);
-        locationComponent.zoomWhileTracking(10d);
-    }
-
-    @Override
-    public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
-        if (response.isSuccessful()
-                && response.body() != null
-                && !response.body().routes().isEmpty()) {
-            List<DirectionsRoute> routes = response.body().routes();
-//            navigationMapRoute.addRoutes(routes);
-        }
-    }
-
-    @Override
-    public void onFailure(Call<DirectionsResponse> call, Throwable t) {
-        Log.d(TAG, "onFailure: " + t.getMessage());
     }
 
     @Override
