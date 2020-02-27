@@ -48,13 +48,16 @@ public class BaatoReverseGeoCodeService {
     }
 
     /**
-     * Set the query to search.
+     * Set the geocode to search.
      */
     public BaatoReverseGeoCodeService setGeoCode(@NonNull Geocode geoCode) {
         this.geocode = geoCode;
         return this;
     }
 
+    /**
+     * Set the radius to search.
+     */
     public BaatoReverseGeoCodeService setRadius(@NonNull int radius) {
         this.radius = radius;
         return this;
