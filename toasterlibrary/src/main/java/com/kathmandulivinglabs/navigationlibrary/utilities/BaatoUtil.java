@@ -1,9 +1,14 @@
-package com.kathmandulivinglabs.navigationlibrary;
+package com.kathmandulivinglabs.navigationlibrary.utilities;
+
+import android.util.Log;
+import android.widget.Toast;
 
 import com.kathmandulivinglabs.navigationlibrary.models.Geometry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class BaatoUtil {
     public static Geometry getGeoJsonFromEncodedPolyLine(String encoded) {
@@ -14,6 +19,7 @@ public class BaatoUtil {
         List<List<Double>> pointList = new ArrayList<>();
         int index = 0;
         int len = encoded.length();
+        Log.d(TAG, "decodePolyline: "+len);
         int lat = 0, lng = 0, ele = 0;
         while (index < len) {
             // latitude
