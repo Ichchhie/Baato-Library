@@ -32,7 +32,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //toaster library
-    implementation 'com.github.Ichchhie:Toaster-Library:0.6.0'
+    implementation 'com.github.Ichchhie:Toaster-Library:0.7.0'
 
     implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:8.6.2'){
         exclude group: 'group_name', module: 'module_name'
