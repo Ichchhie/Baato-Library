@@ -15,4 +15,7 @@ public interface QueryAPI {
 
     @GET("reverse")
     Call<List<Place>> performReverseGeoCode(@Query("lat") double lat, @Query("lon") double lon, @Query("radius") int radius);
+
+    @GET("routes")
+    Call<List<Place>> searchQuery(@Query("origin") String origin,@Query("destination") String destination,@Query("mode") String mode);
 }

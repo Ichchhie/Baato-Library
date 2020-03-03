@@ -16,7 +16,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BaatoReverseGeoCodeService {
+public class BaatoReverseGeoCode {
     private Context context;
     private BaatoReverseGeoCodeRequestListener baatoSearchRequestListener;
     private String accessToken;
@@ -33,14 +33,14 @@ public class BaatoReverseGeoCodeService {
         void onFailed(Throwable error);
     }
 
-    public BaatoReverseGeoCodeService(Context context) {
+    public BaatoReverseGeoCode(Context context) {
         this.context = context;
     }
 
     /**
      * Set the accessToken.
      */
-    public BaatoReverseGeoCodeService setAccessToken(@NonNull String accessToken) {
+    public BaatoReverseGeoCode setAccessToken(@NonNull String accessToken) {
         this.accessToken = accessToken;
         return this;
     }
@@ -48,7 +48,7 @@ public class BaatoReverseGeoCodeService {
     /**
      * Set the geocode to search.
      */
-    public BaatoReverseGeoCodeService setGeoCode(@NonNull Geocode geoCode) {
+    public BaatoReverseGeoCode setGeoCode(@NonNull Geocode geoCode) {
         this.geocode = geoCode;
         return this;
     }
@@ -56,7 +56,7 @@ public class BaatoReverseGeoCodeService {
     /**
      * Set the radius to search.
      */
-    public BaatoReverseGeoCodeService setRadius(@NonNull int radius) {
+    public BaatoReverseGeoCode setRadius(@NonNull int radius) {
         this.radius = radius;
         return this;
     }
@@ -67,7 +67,7 @@ public class BaatoReverseGeoCodeService {
      * @param baatoSearchRequestListener the listener to be notified
      * @return this
      */
-    public BaatoReverseGeoCodeService withListener(BaatoReverseGeoCodeRequestListener baatoSearchRequestListener) {
+    public BaatoReverseGeoCode withListener(BaatoReverseGeoCodeRequestListener baatoSearchRequestListener) {
         this.baatoSearchRequestListener = baatoSearchRequestListener;
         return this;
     }
