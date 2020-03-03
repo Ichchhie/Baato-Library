@@ -29,7 +29,8 @@ dependencies {
 
 ### Prerequisites
 
-For devices Android 9 and above,
+#### To run on devices Android 9 and above,
+
 1.Add a Network Security Configuration file
  
 ```
@@ -53,6 +54,49 @@ For devices Android 9 and above,
 </network-security-config>
 ```
 
+### Implementation
+
+ #### 1. Search 
+ 
+```
+ new BaatoSearchService(this)
+                .setAccessToken("your-access-token")
+                .setQuery("your-query")
+                .withListener(new BaatoSearchService.BaatoSearchRequestListener() {
+                    @Override
+                    public void onSuccess(List<Place> places) {
+                      // get the list of search results here
+                    }
+
+                    @Override
+                    public void onFailed(Throwable error) {
+                      // get the error messages here
+                    }
+                })
+                .doSearch();
+
+```
+ #### 2. Reverse GeoCode
+ 
+ ```
+new BaatoReverseGeoCodeService(this)
+                .setAccessToken("your-access-token")
+                .setGeoCode(new Geocode(lat, long))
+                .setRadius("your-radius")
+                .withListener(new BaatoReverseGeoCodeService.BaatoReverseGeoCodeRequestListener() {
+                    @Override
+                    public void onSuccess(List<Place> places) {
+                       // you can get the address from the first item of the list i.e. places.get(0)
+                    }
+
+                    @Override
+                    public void onFailed(Throwable error) {
+                       // get the error messages here
+                    }
+                })
+                .doReverseGeoCode();
+
+```
 
 ## Built With
 
