@@ -100,9 +100,8 @@ new BaatoReverseGeoCodeService(this)
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Retrofit](https://github.com/square/retrofit) - Used to handle API requests
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
 ## Contributing
 
