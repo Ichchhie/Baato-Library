@@ -1,60 +1,58 @@
 # Baato-Library
 
-One Paragraph of project description goes here
+Fast and efficient library to perform search and reverse geocoding
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
-
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
-
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
+ 1.Open up your project's build.gradle file. Add the following code:
+ 
+```
+allprojects{
+ repositories {
+  maven { url 'https://jitpack.io' }
+ }
+}
 
 ```
-Give the example
-```
 
-And repeat
+2.Open up your application's build.gradle file. Add the following code:
 
 ```
-until finished
+dependencies {
+  implementation 'com.github.Ichchhie:Baato-Library:0.9.0'
+}
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+### Prerequisites
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+For devices Android 9 and above,
+1.Add a Network Security Configuration file
+ 
+```
+<?xml version="1.0" encoding="utf-8"?>
+<manifest ... >
+    <application android:networkSecurityConfig="@xml/network_security_config"
+                    ... >
+        ...
+    </application>
+</manifest>
 
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
+2.In the res/xml/network_security_config.xml file, you can add localhost to the permitted cleartext traffic domain by adding:
 
 ```
-Give an example
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">178.128.59.143</domain>
+    </domain-config>
+</network-security-config>
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
